@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>BattleBoats Setup Rocks</h1>
+
+
+{% endblock content %}
+
+{% block content_nonWeather %}
+
+<style>
+table.table-board td {
+    background-color: "#00BFFF";
+    margin: 12px 12px 12px 12px;
+    padding: 12px 12px 12px 12px;
+}
+table.table-board {
+    border-collapse: separate;
+    border-spacing: 10px;
+    *border-collapse: expression('separate', cellSpacing = '10px');
+    width: 100%;
+    border: 5px solid black
+}
+</style>
+
+<table class="table-board" id="board">
+  {% for cell in cells %}
+    {% if cell[0] == "A" %}
+      <tr class="row-board">
+        <td>{{ cell[1:3] }}</td>
+    {% endif %}
+        <td class="column-board" id="{{ cell }}" bgcolor="#00BFFF">{{ cell }}</td>
+    {% if cell[0] == letter_columns[form.columns.data-1] %}
+      </tr>
+    {% endif %}
+  {% endfor %}
+  <tr>
+    <td></td>
+  {% for letter in letter_columns %}
+    <td>{{ letter[0] }}</td>
+  {% endfor %}
+  </tr>
+</table>
+
+<div class="content-section">
+  <form method ="POST" action ="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Set Up Game</legend>
+      <div class="form-group">
+        {{ form.rows.label(class="form-control-label") }}
+        {% if form.rows.errors %}
+            {{ form.rows(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.rows.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.rows(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.columns.label(class="form-control-label") }}
+        {% if form.columns.errors %}
+            {{ form.columns(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.columns.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.columns(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.rocks.label(class="form-control-label") }}
+        {% if form.rocks.errors %}
+            {{ form.rocks(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.rocks.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.rocks(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+    </fieldset>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+  </form>
+</div>
+
+
+{% endblock content_nonWeather %}

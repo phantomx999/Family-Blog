@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>BattleBoats Game</h1>
+{% endblock content %}
+
+{% block content_nonWeather %}
+
+<div class="content-section">
+  <form method ="POST" action ="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Set Up Game</legend>
+      <div class="form-group">
+        {{ form.rows.label(class="form-control-label") }}
+        {% if form.rows.errors %}
+            {{ form.rows(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.rows.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.rows(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.columns.label(class="form-control-label") }}
+        {% if form.columns.errors %}
+            {{ form.columns(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.columns.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.columns(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.rocks.label(class="form-control-label") }}
+        {% if form.rocks.errors %}
+            {{ form.rocks(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.rocks.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.rocks(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+    </fieldset>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+  </form>
+</div>
+{% endblock content_nonWeather %}
